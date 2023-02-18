@@ -39,16 +39,58 @@ class UserController extends AbstractController
         return $this->success(['token' => $sToken]);
     }
 
-    public function logout()
-    {
-        $iUserId = $this->getUserId();
-        $this->oUserService->logout($iUserId);
-        return $this->success();
-    }
-
     public function info()
     {
         return $this->success();
+    }
+
+    public function subscriptList()
+    {
+        $iUserId = $this->getUserId();
+        $iPage  = $this->oRequest->input('page', 1); 
+        $iSize = $this->oRequest->input('size', 20);
+        $aData = $this->oUserService->subscriptList($iUserId, $iPage, $iSize);
+        return $this->success($aData);
+    }
+
+    public function subscript()
+    {
+        // 用戶自己ID
+        $iFansUserId = $this->getUserId(); 
+
+        // 想訂閱的用戶ID
+        $iUserId  = $this->oRequest->input('user_id'); 
+        $this->oUserService->subscript($iUserId, $iFansUserId);
+        return $this->success();
+    }
+
+    public function cancelSubscript()
+    {
+        // 用戶自己ID
+        $iFansUserId = $this->getUserId();
+
+        // 想退訂閱的用戶ID
+        $iUserId  = $this->oRequest->input('user_id');
+        $this->oUserService->cancelSubscript($iUserId, $iFansUserId);
+        return $this->success();
+    }
+
+    public function fans()
+    {
+        $iUserId = $this->getUserId();
+        $iPage  = $this->oRequest->input('page', 1); 
+        $iSize = $this->oRequest->input('size', 20);
+        $aData = $this->oUserService->fans($iUserId, $iPage, $iSize);
+        return $this->success($aData);
+    }
+
+    public function friends()
+    {
+        $iUserId = $this->getUserId();
+        $iPage  = $this->oRequest->input('page', 1); 
+        $iSize = $this->oRequest->input('size', 20);
+        $aData = $this->oUserService->friends($iUserId, $iPage, $iSize);
+        return $this->success($aData);
     }
 
 }

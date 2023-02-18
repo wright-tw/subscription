@@ -6,14 +6,23 @@ namespace App\Services\Api;
 use Hyperf\Di\Annotation\Inject;
 use Exception;
 use App\Repositories\UserRepo;
+use App\Repositories\FansRepo;
+use App\Repositories\FriendRepo;
 use Hyperf\Redis\Redis;
 use App\Exception\WorkException;
 use App\Constants\ErrorCode as Code;
+use Hyperf\DbConnection\Db;
 
 class UserService extends BaseApiService
 {
     #[Inject]
     protected UserRepo $oUserRepo;
+    
+    #[Inject]
+    protected FansRepo $oFansRepo;
+    
+    #[Inject]
+    protected FriendRepo $oFriendRepo;
 
     public function register($sUsername, $sPasssword)
     {
@@ -107,6 +116,69 @@ class UserService extends BaseApiService
     {
         // 清token
         $this->flushToken($iUserId);
+    }
+
+    public function subscriptList($iUserId, $iPage, $iSize)
+    {
+        $aFans = $this->oFansRepo->getByFansUserIdWithPage($iUserId, $iPage, $iSize);
+        $aSubscriptedUserIds = $aFans['list']->pluck('user_id');
+        $aUsers = $this->oUserRepo->getByIds($aSubscriptedUserIds, ['id', 'username']);
+        
+        $aResult = $aFans;
+        $aResult['list'] = $aUsers;
+        return $aResult;
+    }
+
+    public function subscript($iUserId, $iFansUserId)
+    {
+        Db::transaction(function () use ($iUserId, $iFansUserId) {
+
+            // 確認是否重複
+            $bCheck = $this->oFansRepo->checkSubscript($iUserId, $iFansUserId);
+            if ($bCheck) {
+                throw new WorkException(Code::USER_SUBSCRIPT_REPEAT);
+            }
+
+            // 新增關注
+            $this->oFansRepo->subscript($iUserId, $iFansUserId);
+            $bSubscripted = $this->oFansRepo->checkSubscript($iFansUserId, $iUserId);            
+            if ($bSubscripted) {
+                $this->oFriendRepo->create($iUserId, $iFansUserId);
+                $this->oFriendRepo->create($iFansUserId, $iUserId);
+            }
+
+        });
+
+        return true;
+    }
+
+    public function cancelSubscript($iUserId, $iFansUserId)
+    {
+        Db::transaction(function () use ($iUserId, $iFansUserId) {
+            // 刪除關注
+            $bDbresult = $this->oFansRepo->unSubscript($iUserId, $iFansUserId);
+            if ($bDbresult) {
+                $this->oFriendRepo->delete($iUserId, $iFansUserId);
+                $this->oFriendRepo->delete($iFansUserId, $iUserId);
+            }
+        });
+        return true;
+    }
+
+    public function fans($iUserId, $iPage, $iSize)
+    {
+        $oFans = $this->oFansRepo->getByUserIdWithPage($iUserId, $iPage, $iSize);
+        $aUserIds = $oFans->pluck('fans_user_id');
+        $aUsers = $this->oUserRepo->getByIds($aUserIds, ['id', 'username']);
+        return $aUsers;
+    }
+
+    public function friends($iUserId, $iPage, $iSize)
+    {
+        $oFriends = $this->oFriendRepo->getByUserIdWithPage($iUserId, $iPage, $iSize);
+        $aUserIds = $oFriends->pluck('friend_user_id');
+        $aUsers = $this->oUserRepo->getByIds($aUserIds, ['id', 'username']);
+        return $aUsers;
     }
 
 }

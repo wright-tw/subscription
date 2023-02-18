@@ -21,7 +21,7 @@ class BaseMiddleware implements MiddlewareInterface
     #[Inject]
     protected RequestInterface $oRequest;
 
-    // #[Inject]
+    // [Inject]
     // protected ResponseInterface $oResponse;
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface

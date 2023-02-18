@@ -23,7 +23,10 @@ class Friend extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected array $fillable = [];
+    protected array $fillable = [
+        'user_id',
+        'friend_user_id',
+    ];
 
     /**
      * The attributes that should be cast to native types.

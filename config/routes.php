@@ -1,14 +1,6 @@
 <?php
-
 declare(strict_types=1);
-/**
- * This file is part of Hyperf.
- *
- * @link     https://www.hyperf.io
- * @document https://hyperf.wiki
- * @contact  group@hyperf.io
- * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
- */
+
 use Hyperf\HttpServer\Router\Router;
 use App\Middleware\Api\UserAuthMiddleware;
 
@@ -30,8 +22,24 @@ Router::addGroup('/api',function () {
 
 		// 用戶
 		Router::addGroup('/user', function () {
+
+			// 基礎資訊
 			Router::get('/info', 'App\Controller\Api\UserController@info');
-			Router::post('/logout', 'App\Controller\Api\UserController@logout');
+
+			// 關注列表
+			Router::get('/subscript', 'App\Controller\Api\UserController@subscriptList');
+
+			// 關注
+			Router::post('/subscript', 'App\Controller\Api\UserController@subscript');
+
+			// 取消關注
+			Router::post('/cancel-subscript', 'App\Controller\Api\UserController@cancelSubscript');
+
+			// 粉絲列表
+			Router::get('/fans', 'App\Controller\Api\UserController@fans');
+			
+			// 好友列表
+			Router::get('/friends', 'App\Controller\Api\UserController@friends');
 		});
 
 	}, 

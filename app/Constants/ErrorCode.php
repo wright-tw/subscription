@@ -57,4 +57,10 @@ class ErrorCode extends AbstractConstants
      */
     const USER_REGISTER_PARAMTER_ERROR          = 1007; 
 
+
+    /**
+     * @Message("重複訂閱")
+     */
+    const USER_SUBSCRIPT_REPEAT = 2001;
+
 }

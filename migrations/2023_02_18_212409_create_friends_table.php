@@ -14,7 +14,7 @@ class CreateFriendsTable extends Migration
         Schema::create('friends', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->comment('用戶 ID');
-            $table->bigInteger('friend_user_id')->comment('好友用戶 ID');
+            $table->bigInteger('friend_user_id')->comment('好友用戶 ID')->index();
             $table->timestamps();
             $table->unique(['user_id', 'friend_user_id'], 'friends_unique_index');
         });

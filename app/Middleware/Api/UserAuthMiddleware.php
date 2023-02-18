@@ -16,7 +16,10 @@ class UserAuthMiddleware extends BaseMiddleware
     #[Inject]
     protected UserService $oUserService;
 
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+    public function process(
+        ServerRequestInterface $request, 
+        RequestHandlerInterface $handler
+    ): ResponseInterface
     {
         $sToken = $this->oRequest->header('token', null);
         $this->oUserService->checkTokenOrFail($sToken);

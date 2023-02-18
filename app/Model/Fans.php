@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-
-
 /**
  * @property int $id 
  * @property int $user_id 
@@ -13,7 +11,7 @@ namespace App\Model;
  * @property \Carbon\Carbon $created_at 
  * @property \Carbon\Carbon $updated_at 
  */
-class Fan extends Model
+class Fans extends Model
 {
     /**
      * The table associated with the model.
@@ -23,7 +21,10 @@ class Fan extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected array $fillable = [];
+    protected array $fillable = [
+        'user_id',
+        'fans_user_id',
+    ];
 
     /**
      * The attributes that should be cast to native types.

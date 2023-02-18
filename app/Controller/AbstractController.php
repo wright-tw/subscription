@@ -41,7 +41,7 @@ abstract class AbstractController
         return [
             'status' => HttpConst::STATUS_OK,
             'msg' => 'success',
-            'data' => $aData,
+            'data' => $aData ?? [],
         ];
     }
 

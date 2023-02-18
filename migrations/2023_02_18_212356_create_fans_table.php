@@ -14,7 +14,7 @@ class CreateFansTable extends Migration
         Schema::create('fans', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->comment('用戶 ID');
-            $table->bigInteger('fans_user_id')->comment('粉絲用戶 ID');
+            $table->bigInteger('fans_user_id')->comment('粉絲用戶 ID')->index();
             $table->timestamps();
             $table->unique(['user_id', 'fans_user_id'], 'fans_unique_index');
         });
