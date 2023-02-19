@@ -1,0 +1,335 @@
+{
+	"info": {
+		"_postman_id": "97d5435f-5542-4925-a229-89da04ea7c20",
+		"name": "subscript",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2908778"
+	},
+	"item": [
+		{
+			"name": "註冊",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "wright",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123qwe",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{SUBSCRIPTION_URL}}/api/user/register",
+					"host": [
+						"{{SUBSCRIPTION_URL}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "登入",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "wright",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123qwe",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{SUBSCRIPTION_URL}}/api/user/login",
+					"host": [
+						"{{SUBSCRIPTION_URL}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "登出",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "094b90cbb202d5b9ccba0e4321be54533315a2adfa40e2ee05bd0ad824386511b8ad1577024b609340872491b1f2e0b91a37f4705c0f2e9dd9aabfcb8035eac3",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{SUBSCRIPTION_URL}}/api/user/logout",
+					"host": [
+						"{{SUBSCRIPTION_URL}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "用戶資料",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{SUBSCRIPTION_TOKEN}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{SUBSCRIPTION_URL}}/api/user/info",
+					"host": [
+						"{{SUBSCRIPTION_URL}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "關注列表",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{SUBSCRIPTION_TOKEN}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{SUBSCRIPTION_URL}}/api/user/subscript?page=12&size=20",
+					"host": [
+						"{{SUBSCRIPTION_URL}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"subscript"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "12"
+						},
+						{
+							"key": "size",
+							"value": "20"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "關注",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{SUBSCRIPTION_TOKEN}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "user_id",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{SUBSCRIPTION_URL}}/api/user/subscript",
+					"host": [
+						"{{SUBSCRIPTION_URL}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"subscript"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "取消關注",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{SUBSCRIPTION_TOKEN}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "user_id",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{SUBSCRIPTION_URL}}/api/user/cancel-subscript",
+					"host": [
+						"{{SUBSCRIPTION_URL}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"cancel-subscript"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "粉絲列表",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{SUBSCRIPTION_TOKEN}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{SUBSCRIPTION_URL}}/api/user/fans?page=1&size=20",
+					"host": [
+						"{{SUBSCRIPTION_URL}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"fans"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "20"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "好友列表",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{SUBSCRIPTION_TOKEN}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{SUBSCRIPTION_URL}}/api/user/friends?page=1&size=20",
+					"host": [
+						"{{SUBSCRIPTION_URL}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"friends"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "20"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
