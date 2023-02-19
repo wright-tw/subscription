@@ -45,7 +45,7 @@ Router::addGroup('/api',function () {
 	}, 
 	[
 		'middleware' => [
-			UserAuthMiddleware::class, 
+			UserAuthMiddleware::class,
 		],
 	]);
 

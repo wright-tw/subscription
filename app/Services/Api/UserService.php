@@ -118,16 +118,6 @@ class UserService extends BaseApiService
         $this->flushToken($iUserId);
     }
 
-    public function subscriptList($iUserId, $iPage, $iSize)
-    {
-        $aFans = $this->oFansRepo->getByFansUserIdWithPage($iUserId, $iPage, $iSize);
-        $aSubscriptedUserIds = $aFans['list']->pluck('user_id');
-        $aUsers = $this->oUserRepo->getByIds($aSubscriptedUserIds, ['id', 'username']);
-        
-        $aResult = $aFans;
-        $aResult['list'] = $aUsers;
-        return $aResult;
-    }
 
     public function subscript($iUserId, $iFansUserId)
     {
@@ -165,20 +155,37 @@ class UserService extends BaseApiService
         return true;
     }
 
+    public function subscriptList($iUserId, $iPage, $iSize)
+    {
+        $aFans = $this->oFansRepo->getByFansUserIdWithPage($iUserId, $iPage, $iSize);
+        $aSubscriptedUserIds = $aFans['list']->pluck('user_id');
+        $aUsers = $this->oUserRepo->getByIds($aSubscriptedUserIds, ['id', 'username']);
+        
+        $aResult = $aFans;
+        $aResult['list'] = $aUsers;
+        return $aResult;
+    }
+
     public function fans($iUserId, $iPage, $iSize)
     {
-        $oFans = $this->oFansRepo->getByUserIdWithPage($iUserId, $iPage, $iSize);
-        $aUserIds = $oFans->pluck('fans_user_id');
+        $aFans = $this->oFansRepo->getByUserIdWithPage($iUserId, $iPage, $iSize);
+        $aUserIds = $aFans['list']->pluck('fans_user_id');
         $aUsers = $this->oUserRepo->getByIds($aUserIds, ['id', 'username']);
-        return $aUsers;
+
+        $aResult = $aFans;
+        $aResult['list'] = $aUsers;
+        return $aResult;
     }
 
     public function friends($iUserId, $iPage, $iSize)
     {
-        $oFriends = $this->oFriendRepo->getByUserIdWithPage($iUserId, $iPage, $iSize);
-        $aUserIds = $oFriends->pluck('friend_user_id');
+        $aFriends = $this->oFriendRepo->getByUserIdWithPage($iUserId, $iPage, $iSize);
+        $aUserIds = $aFriends['list']->pluck('friend_user_id');
         $aUsers = $this->oUserRepo->getByIds($aUserIds, ['id', 'username']);
-        return $aUsers;
+
+        $aResult = $aFriends;
+        $aResult['list'] = $aUsers;
+        return $aResult;
     }
 
 }

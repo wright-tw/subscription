@@ -15,13 +15,8 @@ class FansRepo extends BaseRepo
 
 	public function getByUserIdWithPage($iUserId, $iPage, $iSize)
 	{
-		$aResult = [];
-	 	// $aResult['list'] = $this->oFans
-	 	// 	->where('user_id', $iUserId)
-	 	// 	->forPage($iPage, $iSize);
-	 	return $aResult;
-	 	// var_dump($aResult);
-	 	// return $aResult;
+		$oQuery = $this->oFans->where('user_id', $iUserId);
+	 	return $this->paginator($oQuery, $iPage, $iSize);
 	} 
 
 	public function getByFansUserIdWithPage($iFansUserId, $iPage, $iSize)

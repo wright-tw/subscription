@@ -3,11 +3,11 @@ declare (strict_types = 1);
 
 namespace App\Repositories;
 
-use Hyperf\Di\Annotation\Inject;
+use Hyperf\Database\Model\Builder;
 
 class BaseRepo
 {
-	public function paginator($oQuery, $iPage = 1, $iSize = 20)
+	public function paginator(Builder $oQuery, $iPage = 1, $iSize = 20)
 	{
 		$aResult = [];
 		$iTotalCount = $oQuery->count();

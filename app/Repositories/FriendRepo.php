@@ -32,6 +32,7 @@ class FriendRepo extends BaseRepo
 
 	public function getByUserIdWithPage($iUserId, $iPage, $iSize)
 	{
-	 	return $this->oFriend->where('user_id', $iUserId)->get();
+		$oQuery = $this->oFriend->where('user_id', $iUserId);
+	 	return $this->paginator($oQuery, $iPage, $iSize);
 	}
 }
