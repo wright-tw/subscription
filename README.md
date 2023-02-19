@@ -3,20 +3,25 @@
 git clone git@github.com:wright-tw/subscription.git
 cd subscription
 
-// make new .env file (maybe need change .env info)
+# make new .env file (maybe need change .env info)
 cp .env.example .env
 
-// install vendor
+# install vendor
 composer install
 
-// create a empty database, name is "subscription"
+# create a empty database, name is "subscription"
 
-// use php create table
+# use php create table
 php bin/hyperf.php migrate
 
-// run service
+# run service
 php bin/hyperf.php start
+
 ```
+
+# How to try?
+import file ```postman_json/subscript.postman_collection.json``` to postman
+
 
 # Env
 ```
