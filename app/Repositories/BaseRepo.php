@@ -14,8 +14,8 @@ class BaseRepo
 		$aResult['list'] = $oQuery->forPage($iPage, $iSize)->get();
 		$aResult['page_info'] = [
 			'now_page' => (int) $iPage,
-		    'pageCount' => (int) ceil($iTotalCount / $iSize),
-		    'size' => (int) $iSize,
+		    'page_size' => (int) $iSize,
+		    'page_count' => (int) ceil($iTotalCount / $iSize),
 		    'total_count' => (int) $iTotalCount
 		];
 		return $aResult;

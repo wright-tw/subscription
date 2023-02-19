@@ -63,4 +63,14 @@ class ErrorCode extends AbstractConstants
      */
     const USER_SUBSCRIPT_REPEAT = 2001;
 
+    /**
+     * @Message("分頁參數錯誤")
+     */
+    const USER_PAGE_PARAMATER_ERROR = 2002;
+
+    /**
+     * @Message("無法訂閱自己")
+     */
+    const USER_SUBSCRIPT_SELF_ERROR = 2003;
+
 }

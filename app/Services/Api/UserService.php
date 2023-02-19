@@ -121,7 +121,14 @@ class UserService extends BaseApiService
 
     public function subscript($iUserId, $iFansUserId)
     {
+        if ($iUserId == $iFansUserId) {
+            throw new WorkException(Code::USER_SUBSCRIPT_SELF_ERROR);
+        }
+
         Db::transaction(function () use ($iUserId, $iFansUserId) {
+
+            // 被訂閱者是否存在
+            $this->oUserRepo->findByIdOrFail($iUserId);
 
             // 確認是否重複
             $bCheck = $this->oFansRepo->checkSubscript($iUserId, $iFansUserId);

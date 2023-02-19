@@ -46,6 +46,7 @@ class UserController extends AbstractController
 
     public function subscriptList()
     {
+        $this->oUserValidator->pageParamaterCheck($this->oRequest->all());
         $iUserId = $this->getUserId();
         $iPage  = $this->oRequest->input('page', 1); 
         $iSize = $this->oRequest->input('size', 20);
@@ -55,6 +56,8 @@ class UserController extends AbstractController
 
     public function subscript()
     {
+        $this->oUserValidator->userIdFormatCheckCheck($this->oRequest->all());
+
         // 用戶自己ID
         $iFansUserId = $this->getUserId(); 
 
@@ -66,6 +69,8 @@ class UserController extends AbstractController
 
     public function cancelSubscript()
     {
+        $this->oUserValidator->userIdFormatCheckCheck($this->oRequest->all());
+        
         // 用戶自己ID
         $iFansUserId = $this->getUserId();
 
@@ -77,6 +82,7 @@ class UserController extends AbstractController
 
     public function fans()
     {
+        $this->oUserValidator->pageParamaterCheck($this->oRequest->all());
         $iUserId = $this->getUserId();
         $iPage  = $this->oRequest->input('page', 1); 
         $iSize = $this->oRequest->input('size', 20);
@@ -86,6 +92,7 @@ class UserController extends AbstractController
 
     public function friends()
     {
+        $this->oUserValidator->pageParamaterCheck($this->oRequest->all());
         $iUserId = $this->getUserId();
         $iPage  = $this->oRequest->input('page', 1); 
         $iSize = $this->oRequest->input('size', 20);
